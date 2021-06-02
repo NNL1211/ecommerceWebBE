@@ -5,9 +5,10 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require("mongoose")
 const cors = require("cors")
+const passport = require("passport");
 const indexRouter = require('./routes/index');
 const {emailInternalHelper}= require("./helpers/email")
-// require("./helpers/passport");
+require("./helpers/passport");
 
 
 mongoose
@@ -34,7 +35,7 @@ app.use(logger('dev'));
 // app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(passport.initialize());
+app.use(passport.initialize());
 app.use('/api', indexRouter);
 
 

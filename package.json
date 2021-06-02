@@ -20,9 +20,12 @@
     "jsonwebtoken": "^8.5.1",
     "mailgun-js": "^0.22.0",
     "mongoose": "^5.12.9",
+    "mongoose-findorcreate": "^3.0.0",
     "mongoose-text-search": "0.0.2",
     "morgan": "~1.9.1",
     "passport": "^0.4.1",
+    "passport-facebook-token": "^4.0.0",
+    "passport-google-token": "^0.1.2",
     "slugify": "^1.5.3"
   },
   "devDependencies": {

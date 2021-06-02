@@ -7,7 +7,7 @@ const productSchema = mongoose.Schema(
       type: String,
       trim:true,
       required: true,
-      maxlength: 32,
+      maxlength: 100,
       text: true,
      },
     slug: {
@@ -68,7 +68,7 @@ const productSchema = mongoose.Schema(
 );
 productSchema.plugin(require("./plugins/isDeletedFalse"));
 // productSchema.plugin(textSearch);
-productSchema.index({title:"text",description: 'text'});
+productSchema.index({title:'text',description: 'text'});
 // productSchema.index({ '$**': 'text' })
 const Product = mongoose.model("Product", productSchema);
 module.exports = Product;

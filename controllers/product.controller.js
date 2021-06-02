@@ -136,11 +136,11 @@ const handleQuery = async (req, res, query) => {
         // console.log("tao dag search cai gi ?",query)
         //2. get total products number
         // const totalProducts = await Product.find({ $text: { $search: query } }).estimatedDocumentCount().exec();
-        const totalProducts = await Product.countDocuments({ $text: { $search: query } }).exec();
+        const totalProducts = await Product.find({title: { $regex: new RegExp(query, "i") }}).countDocuments();
         //3. caculate total page number
         const totalPages = Math.ceil(totalProducts/limit) 
         console.log("total product found",totalProducts)
-        const products = await Product.find({ $text: { $search: query } })
+        const products = await Product.find({title: { $regex: new RegExp(query, "i") }})
         .populate("category", "_id name")
         .populate("postedBy", "_id name")
         .skip(offset)
@@ -352,7 +352,7 @@ productController.listRelated = async (req, res) => {
           _id: { $ne: product._id },
           category: product.category,
         })
-          .limit(3)
+          .limit(4)
           .populate("category")
           .populate("postedBy")
           .exec();
