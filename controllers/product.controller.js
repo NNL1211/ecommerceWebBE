@@ -135,12 +135,12 @@ const handleQuery = async (req, res, query) => {
         const offset = limit * (page-1)
         // console.log("tao dag search cai gi ?",query)
         //2. get total products number
-        // const totalProducts = await Product.find({ $text: { $search: query } }).estimatedDocumentCount().exec();
-        const totalProducts = await Product.find({title: { $regex: new RegExp(query, "i") }}).countDocuments();
+        const totalProducts = await Product.find({ $text: { $search: query ,$caseSensitive: false  }}).countDocuments();
+        // const totalProducts = await Product.find({title: { $regex: new RegExp(query, "i") }}).countDocuments();
         //3. caculate total page number
         const totalPages = Math.ceil(totalProducts/limit) 
         console.log("total product found",totalProducts)
-        const products = await Product.find({title: { $regex: new RegExp(query, "i") }})
+        const products = await Product.find({ $text: { $search: query ,$caseSensitive: false  }})
         .populate("category", "_id name")
         .populate("postedBy", "_id name")
         .skip(offset)

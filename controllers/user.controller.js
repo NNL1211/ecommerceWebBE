@@ -222,7 +222,8 @@ userController.createUserCart = async (req, res, next) => {
   };
   userController.createPaymentOrder = async (req, res, next) => {
     try {
-      // const { paymentIntent } = req.body.stripeResponse;
+      // console.log(req.body)
+      const { paymentIntent } = req.body.payload;
 
       const user = await User.findById(req.userId).exec();
     
@@ -230,6 +231,7 @@ userController.createUserCart = async (req, res, next) => {
     
       let newOrder = await new Order({
         products,
+        paymentIntent,
         orderdBy: user._id,
       }).save();
 

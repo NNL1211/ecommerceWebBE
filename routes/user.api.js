@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/user.controller")
+const stripeController = require("../controllers/stripe.controller")
 const { body } = require('express-validator');
 const validators = require ("../middlewares/validators")
 const authMiddleware =require ("../middlewares/authentication")
@@ -62,6 +63,13 @@ router.post("/carts/coupon", authMiddleware.loginRequired, userController.applyC
  */
 router.post("/cash-order", authMiddleware.loginRequired, userController.createCashOrder);
 
+   /**
+ * @route POST api/order
+ * @description 
+ * @access Login required
+ */
+    router.post("/payment-order", authMiddleware.loginRequired, userController.createPaymentOrder);
+
 /**
  * @route GET api/users/order
  * @description 
@@ -89,6 +97,13 @@ router.post("/cash-order", authMiddleware.loginRequired, userController.createCa
  * @access Login required
  */
   router.get("/wishlist", authMiddleware.loginRequired, userController.getWishlist);
+
+/**
+ * @route POST api/users/wishlist
+ * @description 
+ * @access Login required
+ */
+    router.post("/create-payment-intent", authMiddleware.loginRequired, stripeController.createPaymentIntent);
 
 
 module.exports = router;
