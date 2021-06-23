@@ -17,11 +17,11 @@ productController.getAllProducts = async (req,res,next)=>{
     const offset = limit * (page-1)
     //5. get Products based on query info
     const products = await Product
-    .find(filter)
+    .find()
     .skip(offset)
     .limit(limit)
     // .sort({ ...sortBy, createdAt: -1 })
-    .sort([["createdAt","desc"]])
+    // .sort([["createdAt","desc"]])
     .populate("category")
     
     res.status(200).json({
